@@ -16,15 +16,21 @@ $this->menu=array(
 );
 ?>
 
-<h1>View USER #<?php echo $model->ID; ?></h1>
+<h1>View USER: <?php echo $model->username; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php 
+    $papel = PAPEIS::model()->findByPk($model->PAPELID);
+
+    $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'ID',
 		'NOME',
-		'LOGIN',
-		'SENHA',
-		'PAPELID'
+		'username',
+		'password',
+         array(               
+            'label'=>'Perfil',
+            'value'=>CHtml::encode($papel->NOME)
+        ),
 	),
 )); ?>

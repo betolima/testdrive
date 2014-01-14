@@ -1,25 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "PAPEIS".
+ * This is the model class for table "PARCELAS".
  *
- * The followings are the available columns in table 'PAPEIS':
+ * The followings are the available columns in table 'PARCELAS':
  * @property integer $ID
- * @property string $NOME
+ * @property integer $MAXIMO
  * @property string $DATA
  *
  * The followings are the available model relations:
- * @property USER[] $USERS
+ * @property CARRO[] $CARROs
  */
-class PAPEIS extends CActiveRecord
+class PARCELAS extends CActiveRecord
 {
-    
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'PAPEIS';
+		return 'PARCELAS';
 	}
 
 	/**
@@ -30,11 +29,11 @@ class PAPEIS extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('NOME, DATA', 'required'),
-			array('NOME', 'length', 'max'=>50),
+			array('MAXIMO, DATA', 'required'),
+			array('MAXIMO', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('ID, NOME, DATA', 'safe', 'on'=>'search'),
+			array('ID, MAXIMO, DATA', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -46,7 +45,7 @@ class PAPEIS extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'USERS' => array(self::HAS_MANY, 'USER', 'PAPELID'),
+			'CARROs' => array(self::HAS_MANY, 'CARRO', 'PARCELASID'),
 		);
 	}
 
@@ -57,7 +56,7 @@ class PAPEIS extends CActiveRecord
 	{
 		return array(
 			'ID' => 'ID',
-			'NOME' => 'Nome',
+			'MAXIMO' => 'Maximo',
 			'DATA' => 'Data',
 		);
 	}
@@ -79,9 +78,9 @@ class PAPEIS extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-        
+
 		$criteria->compare('ID',$this->ID);
-		$criteria->compare('NOME',$this->NOME,true);
+		$criteria->compare('MAXIMO',$this->MAXIMO);
 		$criteria->compare('DATA',$this->DATA,true);
 
 		return new CActiveDataProvider($this, array(
@@ -93,7 +92,7 @@ class PAPEIS extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return PAPEIS the static model class
+	 * @return PARCELAS the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

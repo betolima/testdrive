@@ -6,18 +6,19 @@
  * The followings are the available columns in table 'USER':
  * @property integer $ID
  * @property string $NOME
- * @property string $LOGIN
- * @property string $SENHA
+ * @property string $username
+ * @property string $password
  * @property integer $PAPELID
  *
  * The followings are the available model relations:
- * @property CARRO[] $CARROs
- * @property MARCA[] $MARCAs
+ * @property CARRO[] $CARROS
+ * @property MARCA[] $MARCAS
  * @property PAPEIS $PAPEL
  * @property LOG[] $lOGS
  */
 class USER extends CActiveRecord
 {
+    
 	/**
 	 * @return string the associated database table name
 	 */
@@ -34,13 +35,13 @@ class USER extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('NOME, LOGIN, SENHA, PAPELID', 'required'),
+			array('NOME, username, password, PAPELID', 'required'),
 			array('PAPELID', 'numerical', 'integerOnly'=>true),
-			array('NOME, LOGIN', 'length', 'max'=>100),
-			array('SENHA', 'length', 'max'=>150),
+			array('NOME, username', 'length', 'max'=>50),
+			array('password', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('ID, NOME, LOGIN, SENHA, PAPELID', 'safe', 'on'=>'search'),
+			array('ID, NOME, username, password, PAPELID', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,8 +68,8 @@ class USER extends CActiveRecord
 		return array(
 			'ID' => 'ID',
 			'NOME' => 'Nome',
-			'LOGIN' => 'Login',
-			'SENHA' => 'Senha',
+			'username' => 'Login',
+			'password' => 'Senha',
 			'PAPELID' => 'Perfil'
 		);
 	}
@@ -90,11 +91,11 @@ class USER extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-
+        
 		$criteria->compare('ID',$this->ID);
 		$criteria->compare('NOME',$this->NOME,true);
-		$criteria->compare('LOGIN',$this->LOGIN,true);
-		$criteria->compare('SENHA',$this->SENHA,true);
+		$criteria->compare('username',$this->username,true);
+		$criteria->compare('password',$this->password,true);
 		$criteria->compare('PAPELID',$this->PAPELID);
 
 		return new CActiveDataProvider($this, array(

@@ -14,9 +14,9 @@
  * @property integer $USERID
  *
  * The followings are the available model relations:
- * @property MODELO $mODELO
- * @property PARCELAS $pARCELAS
- * @property USER $uSER
+ * @property MODELO $MODELO
+ * @property PARCELAS $PARCELAS
+ * @property USER $USER
  */
 class CARRO extends CActiveRecord
 {
@@ -69,12 +69,12 @@ class CARRO extends CActiveRecord
 		return array(
 			'ID' => 'ID',
 			'ANO' => 'Ano',
-			'MODELOID' => 'Modeloid',
+			'MODELOID' => 'Modelo',
 			'FOTO' => 'Foto',
 			'VALOR' => 'Valor',
-			'PARCELASID' => 'Parcelasid',
-			'VALORTOTAL' => 'Valortotal',
-			'USERID' => 'Userid',
+			'PARCELASID' => 'Parcelas',
+			'VALORTOTAL' => 'Valor total',
+			'USERID' => 'User',
 		);
 	}
 

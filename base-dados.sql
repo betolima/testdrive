@@ -4,7 +4,7 @@
 
 -- Dumped from database version 9.2.4
 -- Dumped by pg_dump version 9.2.2
--- Started on 2014-01-14 00:48:46
+-- Started on 2014-01-14 18:13:12
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -296,10 +296,10 @@ ALTER SEQUENCE "PARCELAS_ID_seq" OWNED BY "PARCELAS"."ID";
 CREATE TABLE "USER" (
     "ID" integer NOT NULL,
     "NOME" character varying(100) NOT NULL,
-    "LOGIN" character varying(100) NOT NULL,
-    "SENHA" character varying(150) NOT NULL,
     "PAPELID" integer NOT NULL,
-    "DATA" timestamp without time zone DEFAULT now() NOT NULL
+    "DATA" timestamp without time zone DEFAULT now() NOT NULL,
+    username character varying(50),
+    password character varying(50)
 );
 
 
@@ -504,8 +504,8 @@ SELECT pg_catalog.setval('"PARCELAS_ID_seq"', 3, true);
 -- Data for Name: USER; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO "USER" ("ID", "NOME", "LOGIN", "SENHA", "PAPELID", "DATA") VALUES (1, 'ROBERTO S. LIMA', 'betolima', '123456', 1, '2014-01-13 16:54:29.954');
-INSERT INTO "USER" ("ID", "NOME", "LOGIN", "SENHA", "PAPELID", "DATA") VALUES (2, 'JOÃOZINHO', 'joao', '123', 2, '2014-01-13 18:48:25.932');
+INSERT INTO "USER" ("ID", "NOME", "PAPELID", "DATA", username, password) VALUES (1, 'ROBERTO S. LIMA', 1, '2014-01-13 16:54:29.954', 'betolima', '123');
+INSERT INTO "USER" ("ID", "NOME", "PAPELID", "DATA", username, password) VALUES (2, 'JOÃOZINHO', 2, '2014-01-13 18:48:25.932', 'joao', '123');
 
 
 --
@@ -626,7 +626,7 @@ ALTER TABLE ONLY "MARCA"
 
 
 --
--- TOC entry 1985 (class 2606 OID 49312)
+-- TOC entry 1985 (class 2606 OID 49317)
 -- Name: USER_PAPELID_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -646,7 +646,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2014-01-14 00:48:47
+-- Completed on 2014-01-14 18:13:13
 
 --
 -- PostgreSQL database dump complete

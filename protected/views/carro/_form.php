@@ -26,12 +26,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'MODELOID'); ?>
-		<?php echo $form->textField($model,'MODELOID'); ?>
-		<?php echo $form->error($model,'MODELOID'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'FOTO'); ?>
 		<?php echo $form->textField($model,'FOTO',array('size'=>60,'maxlength'=>150)); ?>
 		<?php echo $form->error($model,'FOTO'); ?>
@@ -44,9 +38,13 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'PARCELASID'); ?>
-		<?php echo $form->textField($model,'PARCELASID'); ?>
-		<?php echo $form->error($model,'PARCELASID'); ?>
+		<?php echo CHtml::activeLabelEx($model,'PARCELASID');
+        echo CHtml::activeDropDownList($model,'PARCELASID',
+            CHtml::listData(PARCELAS::model()->findAll(), 'ID', 'MAXIMO'),
+            array('empty'=>'Escolha uma parcela'));
+        
+        echo $form->error($model,'PARCELASID');
+        ?>
 	</div>
 
 	<div class="row">
@@ -54,6 +52,18 @@
 		<?php echo $form->textField($model,'VALORTOTAL',array('size'=>10,'maxlength'=>10)); ?>
 		<?php echo $form->error($model,'VALORTOTAL'); ?>
 	</div>
+	
+    <div class="row">
+        <?php echo $form->labelEx($model,'USERID'); ?>
+        <?php 
+        //echo $form->textField($model,'USERID',array('readonly'=>true, 'disabled'=>true)); 
+        
+        //$user = USER::model()->findByPk($model->USERID); 
+          //echo CHtml::encode($user->LOGIN);
+          
+        ?>
+        <?php echo $form->error($model,'USERID'); ?>
+    </div>	
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
