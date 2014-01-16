@@ -25,17 +25,48 @@
 		<?php echo $form->error($model,'nome'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'data'); ?>
-		<?php echo $form->textField($model,'data'); ?>
-		<?php echo $form->error($model,'data'); ?>
-	</div>
+    <div class="row">
+        <?php echo $form->labelEx($model,'data'); 
+        if($model->isNewRecord){
+            echo date('d/m/Y');
+        } else {
+            echo $model->data = date("d/m/Y",strtotime($model->data));
+        }
+        ?>
+    </div>	
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'user_id'); ?>
-		<?php echo $form->textField($model,'user_id'); ?>
-		<?php echo $form->error($model,'user_id'); ?>
-	</div>
+    <?php 
+        if($model->isNewRecord){
+    ?>
+    <div class="row">
+        <?php echo $form->labelEx($model,'user_id');
+            echo $form->hiddenField($model,'user_id', array('value'=>Yii::app()->user->getState('idSession')));
+            echo Yii::app()->user->getName();
+            //echo $form->error($model,'user_id'); 
+        ?>
+    </div>  
+    <?php 
+        } else {
+    ?>
+    <div class="row">
+        <?php echo $form->labelEx($model,'criado por');
+            $user = Users::model()->findByPk($model->user_id);
+            echo CHtml::encode($user->username);
+        ?>
+    </div>
+    <div class="row">
+        <?php echo $form->labelEx($model,'editado por');
+              $userEdit = ($model->user_id_update) ? Users::model()->findByPk($model->user_id_update) : Users::model()->findByPk($model->user_id);
+              $usu_edicao = ($model->user_id_update ? $userEdit->username : 'registro nao editado');
+              echo CHtml::encode($usu_edicao);
+        
+              echo $form->hiddenField($model,'user_id_update', array('value'=>Yii::app()->user->getState('idSession')));
+            //echo $form->error($model,'user_id_update'); 
+        ?>
+    </div>
+    <?php 
+        }
+    ?>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

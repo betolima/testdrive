@@ -4,7 +4,7 @@
 
 -- Dumped from database version 9.2.4
 -- Dumped by pg_dump version 9.2.2
--- Started on 2014-01-16 00:27:55
+-- Started on 2014-01-16 12:54:59
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -14,7 +14,7 @@ SET client_min_messages = warning;
 
 DROP DATABASE api;
 --
--- TOC entry 2006 (class 1262 OID 49352)
+-- TOC entry 2008 (class 1262 OID 49352)
 -- Name: api; Type: DATABASE; Schema: -; Owner: postgres
 --
 
@@ -42,7 +42,7 @@ CREATE SCHEMA public;
 ALTER SCHEMA public OWNER TO postgres;
 
 --
--- TOC entry 2007 (class 0 OID 0)
+-- TOC entry 2009 (class 0 OID 0)
 -- Dependencies: 6
 -- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
 --
@@ -59,7 +59,7 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 2009 (class 0 OID 0)
+-- TOC entry 2011 (class 0 OID 0)
 -- Dependencies: 182
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
@@ -111,7 +111,7 @@ CREATE SEQUENCE carros_id_seq
 ALTER TABLE public.carros_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2010 (class 0 OID 0)
+-- TOC entry 2012 (class 0 OID 0)
 -- Dependencies: 169
 -- Name: carros_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -149,7 +149,7 @@ CREATE SEQUENCE logs_id_seq
 ALTER TABLE public.logs_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2011 (class 0 OID 0)
+-- TOC entry 2013 (class 0 OID 0)
 -- Dependencies: 171
 -- Name: logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -166,7 +166,8 @@ CREATE TABLE marcas (
     id integer NOT NULL,
     nome character varying(50) NOT NULL,
     data timestamp without time zone DEFAULT now() NOT NULL,
-    user_id integer NOT NULL
+    user_id integer NOT NULL,
+    user_id_update integer
 );
 
 
@@ -188,7 +189,7 @@ CREATE SEQUENCE marcas_id_seq
 ALTER TABLE public.marcas_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2012 (class 0 OID 0)
+-- TOC entry 2014 (class 0 OID 0)
 -- Dependencies: 173
 -- Name: marcas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -226,7 +227,7 @@ CREATE SEQUENCE modelos_id_seq
 ALTER TABLE public.modelos_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2013 (class 0 OID 0)
+-- TOC entry 2015 (class 0 OID 0)
 -- Dependencies: 175
 -- Name: modelos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -264,7 +265,7 @@ CREATE SEQUENCE papeis_id_seq
 ALTER TABLE public.papeis_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2014 (class 0 OID 0)
+-- TOC entry 2016 (class 0 OID 0)
 -- Dependencies: 177
 -- Name: papeis_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -302,7 +303,7 @@ CREATE SEQUENCE parcelas_id_seq
 ALTER TABLE public.parcelas_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2015 (class 0 OID 0)
+-- TOC entry 2017 (class 0 OID 0)
 -- Dependencies: 179
 -- Name: parcelas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -321,7 +322,8 @@ CREATE TABLE users (
     username character varying(50),
     password character varying(50),
     data timestamp without time zone DEFAULT now() NOT NULL,
-    papel_id integer NOT NULL
+    papel_id integer NOT NULL,
+    rg numeric
 );
 
 
@@ -343,7 +345,7 @@ CREATE SEQUENCE users_id_seq
 ALTER TABLE public.users_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2016 (class 0 OID 0)
+-- TOC entry 2018 (class 0 OID 0)
 -- Dependencies: 181
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -352,7 +354,7 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- TOC entry 1953 (class 2604 OID 49395)
+-- TOC entry 1954 (class 2604 OID 49395)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -360,7 +362,7 @@ ALTER TABLE ONLY carros ALTER COLUMN id SET DEFAULT nextval('carros_id_seq'::reg
 
 
 --
--- TOC entry 1955 (class 2604 OID 49396)
+-- TOC entry 1956 (class 2604 OID 49396)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -368,7 +370,7 @@ ALTER TABLE ONLY logs ALTER COLUMN id SET DEFAULT nextval('logs_id_seq'::regclas
 
 
 --
--- TOC entry 1957 (class 2604 OID 49397)
+-- TOC entry 1958 (class 2604 OID 49397)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -376,7 +378,7 @@ ALTER TABLE ONLY marcas ALTER COLUMN id SET DEFAULT nextval('marcas_id_seq'::reg
 
 
 --
--- TOC entry 1959 (class 2604 OID 49398)
+-- TOC entry 1960 (class 2604 OID 49398)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -384,7 +386,7 @@ ALTER TABLE ONLY modelos ALTER COLUMN id SET DEFAULT nextval('modelos_id_seq'::r
 
 
 --
--- TOC entry 1961 (class 2604 OID 49399)
+-- TOC entry 1962 (class 2604 OID 49399)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -392,7 +394,7 @@ ALTER TABLE ONLY papeis ALTER COLUMN id SET DEFAULT nextval('papeis_id_seq'::reg
 
 
 --
--- TOC entry 1963 (class 2604 OID 49400)
+-- TOC entry 1964 (class 2604 OID 49400)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -400,7 +402,7 @@ ALTER TABLE ONLY parcelas ALTER COLUMN id SET DEFAULT nextval('parcelas_id_seq':
 
 
 --
--- TOC entry 1965 (class 2604 OID 49401)
+-- TOC entry 1966 (class 2604 OID 49401)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -408,64 +410,68 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 
 --
--- TOC entry 1988 (class 0 OID 49353)
+-- TOC entry 1990 (class 0 OID 49353)
 -- Dependencies: 168
 -- Data for Name: carros; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 INSERT INTO carros (id, ano, modelo_id, foto, valor, parcelas_id, valor_total, data, user_id, marca_id, user_id_update) VALUES (8, 1995, 1, '073d89746fac7e152243f7106be47eb1.jpg', 8500.00, 1, 8650.00, '2014-01-16 00:25:00.616', 1, 1, 1);
 INSERT INTO carros (id, ano, modelo_id, foto, valor, parcelas_id, valor_total, data, user_id, marca_id, user_id_update) VALUES (9, 2010, 2, '', 9850.00, 2, 9900.00, '2014-01-16 00:26:13.503', 1, 3, 1);
+INSERT INTO carros (id, ano, modelo_id, foto, valor, parcelas_id, valor_total, data, user_id, marca_id, user_id_update) VALUES (11, 2001, 4, '', 300.00, 1, 600.00, '2014-01-16 10:47:42.468', 1, 2, 1);
 
 
 --
--- TOC entry 2017 (class 0 OID 0)
+-- TOC entry 2019 (class 0 OID 0)
 -- Dependencies: 169
 -- Name: carros_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('carros_id_seq', 9, true);
+SELECT pg_catalog.setval('carros_id_seq', 11, true);
 
 
 --
--- TOC entry 1990 (class 0 OID 49359)
+-- TOC entry 1992 (class 0 OID 49359)
 -- Dependencies: 170
 -- Data for Name: logs; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 INSERT INTO logs (id, user_id, data_login) VALUES (4, 1, '2014-01-16 00:23:39.531');
+INSERT INTO logs (id, user_id, data_login) VALUES (5, 1, '2014-01-16 11:22:30.172');
+INSERT INTO logs (id, user_id, data_login) VALUES (6, 1, '2014-01-16 12:51:57.406');
+INSERT INTO logs (id, user_id, data_login) VALUES (7, 2, '2014-01-16 12:52:30.194');
 
 
 --
--- TOC entry 2018 (class 0 OID 0)
+-- TOC entry 2020 (class 0 OID 0)
 -- Dependencies: 171
 -- Name: logs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('logs_id_seq', 4, true);
+SELECT pg_catalog.setval('logs_id_seq', 7, true);
 
 
 --
--- TOC entry 1992 (class 0 OID 49365)
+-- TOC entry 1994 (class 0 OID 49365)
 -- Dependencies: 172
 -- Data for Name: marcas; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO marcas (id, nome, data, user_id) VALUES (1, 'Corsa', '2014-01-15 08:16:07.847', 1);
-INSERT INTO marcas (id, nome, data, user_id) VALUES (2, 'Civic', '2014-01-15 08:16:19.095', 1);
-INSERT INTO marcas (id, nome, data, user_id) VALUES (3, 'Palio', '2014-01-15 08:16:41.575', 1);
+INSERT INTO marcas (id, nome, data, user_id, user_id_update) VALUES (2, 'Civic', '2014-01-15 08:16:19.095', 1, NULL);
+INSERT INTO marcas (id, nome, data, user_id, user_id_update) VALUES (3, 'Palio', '2014-01-15 08:16:41.575', 1, NULL);
+INSERT INTO marcas (id, nome, data, user_id, user_id_update) VALUES (1, 'Corsa', '2014-01-16 11:22:40.5', 1, 1);
 
 
 --
--- TOC entry 2019 (class 0 OID 0)
+-- TOC entry 2021 (class 0 OID 0)
 -- Dependencies: 173
 -- Name: marcas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('marcas_id_seq', 3, true);
+SELECT pg_catalog.setval('marcas_id_seq', 4, true);
 
 
 --
--- TOC entry 1994 (class 0 OID 49371)
+-- TOC entry 1996 (class 0 OID 49371)
 -- Dependencies: 174
 -- Data for Name: modelos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -477,7 +483,7 @@ INSERT INTO modelos (id, nome, data) VALUES (4, 'TOYOTA', '2014-01-13 11:23:10.9
 
 
 --
--- TOC entry 2020 (class 0 OID 0)
+-- TOC entry 2022 (class 0 OID 0)
 -- Dependencies: 175
 -- Name: modelos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -486,7 +492,7 @@ SELECT pg_catalog.setval('modelos_id_seq', 4, true);
 
 
 --
--- TOC entry 1996 (class 0 OID 49377)
+-- TOC entry 1998 (class 0 OID 49377)
 -- Dependencies: 176
 -- Data for Name: papeis; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -496,7 +502,7 @@ INSERT INTO papeis (id, nome, data) VALUES (2, 'FUNCIONÁRIOS', '2014-01-13 11:3
 
 
 --
--- TOC entry 2021 (class 0 OID 0)
+-- TOC entry 2023 (class 0 OID 0)
 -- Dependencies: 177
 -- Name: papeis_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -505,7 +511,7 @@ SELECT pg_catalog.setval('papeis_id_seq', 2, true);
 
 
 --
--- TOC entry 1998 (class 0 OID 49383)
+-- TOC entry 2000 (class 0 OID 49383)
 -- Dependencies: 178
 -- Data for Name: parcelas; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -516,7 +522,7 @@ INSERT INTO parcelas (id, maximo, data) VALUES (3, 12, '2014-01-13 11:26:02.454'
 
 
 --
--- TOC entry 2022 (class 0 OID 0)
+-- TOC entry 2024 (class 0 OID 0)
 -- Dependencies: 179
 -- Name: parcelas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -525,17 +531,17 @@ SELECT pg_catalog.setval('parcelas_id_seq', 3, true);
 
 
 --
--- TOC entry 2000 (class 0 OID 49389)
+-- TOC entry 2002 (class 0 OID 49389)
 -- Dependencies: 180
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO users (id, nome, username, password, data, papel_id) VALUES (1, 'ROBERTO S. LIMA', 'betolima', '123', '2014-01-13 16:54:29.954', 1);
-INSERT INTO users (id, nome, username, password, data, papel_id) VALUES (2, 'JOÃOZINHO', 'joao', '123', '2014-01-15 00:07:44.917', 2);
+INSERT INTO users (id, nome, username, password, data, papel_id, rg) VALUES (1, 'ROBERTO S. LIMA', 'betolima', '123', '2014-01-13 16:54:29.954', 1, 2072608124);
+INSERT INTO users (id, nome, username, password, data, papel_id, rg) VALUES (2, 'JOÃOZINHO', 'joao', '123', '2014-01-15 00:07:44.917', 2, 1122334455);
 
 
 --
--- TOC entry 2023 (class 0 OID 0)
+-- TOC entry 2025 (class 0 OID 0)
 -- Dependencies: 181
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -544,7 +550,7 @@ SELECT pg_catalog.setval('users_id_seq', 4, true);
 
 
 --
--- TOC entry 1967 (class 2606 OID 49403)
+-- TOC entry 1968 (class 2606 OID 49403)
 -- Name: carros_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -553,7 +559,7 @@ ALTER TABLE ONLY carros
 
 
 --
--- TOC entry 1969 (class 2606 OID 49405)
+-- TOC entry 1970 (class 2606 OID 49405)
 -- Name: logs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -562,7 +568,7 @@ ALTER TABLE ONLY logs
 
 
 --
--- TOC entry 1971 (class 2606 OID 49407)
+-- TOC entry 1972 (class 2606 OID 49407)
 -- Name: marcas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -571,7 +577,7 @@ ALTER TABLE ONLY marcas
 
 
 --
--- TOC entry 1973 (class 2606 OID 49409)
+-- TOC entry 1974 (class 2606 OID 49409)
 -- Name: modelos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -580,7 +586,7 @@ ALTER TABLE ONLY modelos
 
 
 --
--- TOC entry 1975 (class 2606 OID 49411)
+-- TOC entry 1976 (class 2606 OID 49411)
 -- Name: papeis_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -589,7 +595,7 @@ ALTER TABLE ONLY papeis
 
 
 --
--- TOC entry 1977 (class 2606 OID 49413)
+-- TOC entry 1978 (class 2606 OID 49413)
 -- Name: parcelas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -598,7 +604,7 @@ ALTER TABLE ONLY parcelas
 
 
 --
--- TOC entry 1979 (class 2606 OID 49415)
+-- TOC entry 1980 (class 2606 OID 49415)
 -- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -607,7 +613,7 @@ ALTER TABLE ONLY users
 
 
 --
--- TOC entry 1980 (class 2606 OID 57429)
+-- TOC entry 1981 (class 2606 OID 57429)
 -- Name: carros_marca_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -616,7 +622,7 @@ ALTER TABLE ONLY carros
 
 
 --
--- TOC entry 1981 (class 2606 OID 57434)
+-- TOC entry 1982 (class 2606 OID 57434)
 -- Name: carros_modelo_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -625,7 +631,7 @@ ALTER TABLE ONLY carros
 
 
 --
--- TOC entry 1982 (class 2606 OID 57439)
+-- TOC entry 1983 (class 2606 OID 57439)
 -- Name: carros_parcelas_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -634,7 +640,7 @@ ALTER TABLE ONLY carros
 
 
 --
--- TOC entry 1983 (class 2606 OID 57444)
+-- TOC entry 1984 (class 2606 OID 57444)
 -- Name: carros_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -643,7 +649,7 @@ ALTER TABLE ONLY carros
 
 
 --
--- TOC entry 1984 (class 2606 OID 57449)
+-- TOC entry 1985 (class 2606 OID 57449)
 -- Name: carros_user_id_update_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -652,7 +658,7 @@ ALTER TABLE ONLY carros
 
 
 --
--- TOC entry 1985 (class 2606 OID 49431)
+-- TOC entry 1986 (class 2606 OID 49431)
 -- Name: logs_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -661,7 +667,7 @@ ALTER TABLE ONLY logs
 
 
 --
--- TOC entry 1986 (class 2606 OID 49436)
+-- TOC entry 1987 (class 2606 OID 57460)
 -- Name: marcas_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -670,7 +676,16 @@ ALTER TABLE ONLY marcas
 
 
 --
--- TOC entry 1987 (class 2606 OID 57349)
+-- TOC entry 1988 (class 2606 OID 57465)
+-- Name: marcas_user_id_update_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY marcas
+    ADD CONSTRAINT marcas_user_id_update_fkey FOREIGN KEY (user_id_update) REFERENCES users(id);
+
+
+--
+-- TOC entry 1989 (class 2606 OID 57349)
 -- Name: users_papel_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -679,7 +694,7 @@ ALTER TABLE ONLY users
 
 
 --
--- TOC entry 2008 (class 0 OID 0)
+-- TOC entry 2010 (class 0 OID 0)
 -- Dependencies: 6
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
@@ -690,7 +705,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2014-01-16 00:27:55
+-- Completed on 2014-01-16 12:55:00
 
 --
 -- PostgreSQL database dump complete

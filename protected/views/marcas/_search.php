@@ -21,15 +21,12 @@
 		<?php echo $form->textField($model,'nome',array('size'=>50,'maxlength'=>50)); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'data'); ?>
-		<?php echo $form->textField($model,'data'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'user_id'); ?>
-		<?php echo $form->textField($model,'user_id'); ?>
-	</div>
+    <div class="row">
+        <?php echo $form->label($model,'user_id'); ?>
+        <?php echo CHtml::activeDropDownList($model,'user_id',
+            CHtml::listData(Users::model()->findAll(), 'id', 'username'),
+            array('empty'=>'Escolha um usuario')); ?>
+    </div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Search'); ?>

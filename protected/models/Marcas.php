@@ -8,9 +8,11 @@
  * @property string $nome
  * @property string $data
  * @property integer $user_id
+ * @property integer $user_id_update
  *
  * The followings are the available model relations:
  * @property Users $user
+ * @property Users $userIdUpdate
  */
 class Marcas extends CActiveRecord
 {
@@ -31,11 +33,11 @@ class Marcas extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('nome, data, user_id', 'required'),
-			array('user_id', 'numerical', 'integerOnly'=>true),
+			array('user_id, user_id_update', 'numerical', 'integerOnly'=>true),
 			array('nome', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nome, data, user_id', 'safe', 'on'=>'search'),
+			array('id, nome, data, user_id, user_id_update', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -48,6 +50,7 @@ class Marcas extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
+			'userIdUpdate' => array(self::BELONGS_TO, 'Users', 'user_id_update'),
 		);
 	}
 
@@ -61,6 +64,7 @@ class Marcas extends CActiveRecord
 			'nome' => 'Nome',
 			'data' => 'Data',
 			'user_id' => 'User',
+			'user_id_update' => 'User Id Update',
 		);
 	}
 
@@ -86,6 +90,7 @@ class Marcas extends CActiveRecord
 		$criteria->compare('nome',$this->nome,true);
 		$criteria->compare('data',$this->data,true);
 		$criteria->compare('user_id',$this->user_id);
+        $criteria->compare('user_id_update',$this->user_id_update);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

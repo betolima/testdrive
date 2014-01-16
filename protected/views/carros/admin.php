@@ -51,7 +51,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
              'name'=>'marca.nome'),
          array('header'=>'Modelo',
              'name'=>'modelo.nome'),
-		'foto',
+		//'foto',
 		'valor',
          array('header'=>'Parcela',
              'name'=>'parcelas.maximo'),

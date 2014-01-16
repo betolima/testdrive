@@ -14,11 +14,13 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('data')); ?>:</b>
-	<?php echo CHtml::encode($data->data); ?>
+	<?php echo $data->data = date("d/m/Y",strtotime($data->data));?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('user_id')); ?>:</b>
-	<?php echo CHtml::encode($data->user_id); ?>
+	<?php $user = Users::model()->findByPk($data->user_id); 
+          echo CHtml::encode($user->username);     
+	?>
 	<br />
 
 

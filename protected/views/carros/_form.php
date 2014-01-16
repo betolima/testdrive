@@ -99,7 +99,6 @@
     <div class="row">
         <?php echo $form->labelEx($model,'user_id');
             echo $form->hiddenField($model,'user_id', array('value'=>Yii::app()->user->getState('idSession')));
-            echo $form->hiddenField($model,'user_id_update', array('value'=>Yii::app()->user->getState('idSession')));
             echo Yii::app()->user->getName();
             //echo $form->error($model,'user_id'); 
         ?>

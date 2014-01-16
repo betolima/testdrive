@@ -32,9 +32,6 @@ $this->breadcrumbs=array(
 		<?php echo $form->labelEx($model,'password'); ?>
 		<?php echo $form->passwordField($model,'password'); ?>
 		<?php echo $form->error($model,'password'); ?>
-		<p class="hint">
-			Hint: You may login with <kbd>demo</kbd>/<kbd>demo</kbd> or <kbd>admin</kbd>/<kbd>admin</kbd>.
-		</p>
 	</div>
 
 	<div class="row rememberMe">
@@ -48,7 +45,7 @@ $this->breadcrumbs=array(
 	</div>
 	
    <div class="row buttons">
-        <a href="">Esqueci minha senha</a>
+        <a href="<?php echo Yii::app()->request->baseUrl.'/index.php?r=site/recuperar'; ?>">Esqueci minha senha</a>
     </div>
 
 <?php $this->endWidget(); ?>

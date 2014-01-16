@@ -3,7 +3,7 @@
 /* @var $model Marcas */
 
 $this->breadcrumbs=array(
-	'Marcases'=>array('index'),
+	'Marcas'=>array('index'),
 	$model->id,
 );
 
@@ -18,12 +18,21 @@ $this->menu=array(
 
 <h1>View Marcas #<?php echo $model->id; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php 
+    $user    = Users::model()->findByPk($model->user_id);
+    
+    $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
 		'nome',
-		'data',
-		'user_id',
+		array(               
+            'label'=>'Data',
+            'value'=> CHtml::encode(date("d/m/Y",strtotime($model->data)))
+        ),
+		array(               
+            'label'=>'User',
+            'value'=>CHtml::encode($user->username)
+        ),
 	),
 )); ?>

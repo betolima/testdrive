@@ -3,7 +3,7 @@
 /* @var $model Marcas */
 
 $this->breadcrumbs=array(
-	'Marcases'=>array('index'),
+	'Marcas'=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
 	'Update',
 );
