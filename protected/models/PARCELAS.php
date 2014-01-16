@@ -1,24 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "PARCELAS".
+ * This is the model class for table "parcelas".
  *
- * The followings are the available columns in table 'PARCELAS':
- * @property integer $ID
- * @property integer $MAXIMO
- * @property string $DATA
+ * The followings are the available columns in table 'parcelas':
+ * @property integer $id
+ * @property integer $maximo
+ * @property string $data
  *
  * The followings are the available model relations:
- * @property CARRO[] $CARROs
+ * @property carro[] $carros
  */
-class PARCELAS extends CActiveRecord
+class Parcelas extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'PARCELAS';
+		return 'parcelas';
 	}
 
 	/**
@@ -29,11 +29,11 @@ class PARCELAS extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('MAXIMO, DATA', 'required'),
-			array('MAXIMO', 'numerical', 'integerOnly'=>true),
+			array('maximo, data', 'required'),
+			array('maximo', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('ID, MAXIMO, DATA', 'safe', 'on'=>'search'),
+			array('id, maximo, data', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -45,7 +45,7 @@ class PARCELAS extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'CARROs' => array(self::HAS_MANY, 'CARRO', 'PARCELASID'),
+			'carros' => array(self::HAS_MANY, 'carros', 'parcelas_id'),
 		);
 	}
 
@@ -55,9 +55,9 @@ class PARCELAS extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'ID' => 'ID',
-			'MAXIMO' => 'Maximo',
-			'DATA' => 'Data',
+			'id' => 'Id',
+			'maximo' => 'Maximo',
+			'data' => 'Data',
 		);
 	}
 
@@ -79,9 +79,9 @@ class PARCELAS extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('ID',$this->ID);
-		$criteria->compare('MAXIMO',$this->MAXIMO);
-		$criteria->compare('DATA',$this->DATA,true);
+		$criteria->compare('id',$this->id);
+		$criteria->compare('maximo',$this->maximo);
+		$criteria->compare('data',$this->data,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

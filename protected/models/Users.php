@@ -1,17 +1,22 @@
 <?php
 
 /**
- * This is the model class for table "papeis".
+ * This is the model class for table "users".
  *
- * The followings are the available columns in table 'papeis':
+ * the followings are the available columns in table 'user':
  * @property integer $id
  * @property string $nome
- * @property string $data
+ * @property string $username
+ * @property string $password
+ * @property integer $papel_id
  *
- * The followings are the available model relations:
- * @property user[] $users
+ * the followings are the available model relations:
+ * @property carros[] $carros
+ * @property marcas[] $marcas
+ * @property papeis $papel
+ * @property logs[] $logs
  */
-class Papeis extends CActiveRecord
+class Users extends CActiveRecord
 {
     
 	/**
@@ -19,7 +24,7 @@ class Papeis extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'papeis';
+		return 'users';
 	}
 
 	/**
@@ -30,11 +35,13 @@ class Papeis extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nome, data', 'required'),
-			array('nome', 'length', 'max'=>50),
-			// the following rule is used by search().
-			// @todo please remove those attributes that should not be searched.
-			array('id, nome, data', 'safe', 'on'=>'search'),
+			array('nome, username, password, papel_id', 'required'),
+			array('papel_id', 'numerical', 'integerOnly'=>true),
+			array('nome, username', 'length', 'max'=>50),
+			array('password', 'length', 'max'=>50),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('id, nome, username, password, papel_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -46,7 +53,10 @@ class Papeis extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'users' => array(self::HAS_MANY, 'users', 'papel_id'),
+			'carros' => array(self::HAS_MANY, 'carros', 'user_id'),
+			'marcas' => array(self::HAS_MANY, 'marcas', 'marca_id'),
+			'papeis' => array(self::BELONGS_TO, 'papeis', 'papel_id'),
+			'logs' => array(self::HAS_MANY, 'logs', 'user_id'),
 		);
 	}
 
@@ -56,9 +66,11 @@ class Papeis extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'Id',
+			'id' => 'ID',
 			'nome' => 'Nome',
-			'data' => 'Data',
+			'username' => 'Login',
+			'password' => 'Senha',
+			'papel_id' => 'Perfil'
 		);
 	}
 
@@ -82,7 +94,9 @@ class Papeis extends CActiveRecord
         
 		$criteria->compare('id',$this->id);
 		$criteria->compare('nome',$this->nome,true);
-		$criteria->compare('data',$this->data,true);
+		$criteria->compare('username',$this->username,true);
+		$criteria->compare('password',$this->password,true);
+		$criteria->compare('papel_id',$this->papel_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -93,7 +107,7 @@ class Papeis extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return PAPEIS the static model class
+	 * @return USER the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

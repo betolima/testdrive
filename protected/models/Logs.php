@@ -1,25 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "papeis".
+ * This is the model class for table "logs".
  *
- * The followings are the available columns in table 'papeis':
+ * The followings are the available columns in table 'logs':
  * @property integer $id
- * @property string $nome
- * @property string $data
+ * @property integer $user_id
+ * @property string $data_login
  *
  * The followings are the available model relations:
- * @property user[] $users
+ * @property Users $user
  */
-class Papeis extends CActiveRecord
+class Logs extends CActiveRecord
 {
-    
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'papeis';
+		return 'logs';
 	}
 
 	/**
@@ -30,11 +29,11 @@ class Papeis extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nome, data', 'required'),
-			array('nome', 'length', 'max'=>50),
-			// the following rule is used by search().
-			// @todo please remove those attributes that should not be searched.
-			array('id, nome, data', 'safe', 'on'=>'search'),
+			array('user_id, data_login', 'required'),
+			array('user_id', 'numerical', 'integerOnly'=>true),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('id, user_id, data_login', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -46,7 +45,7 @@ class Papeis extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'users' => array(self::HAS_MANY, 'users', 'papel_id'),
+			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
 		);
 	}
 
@@ -56,9 +55,9 @@ class Papeis extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'Id',
-			'nome' => 'Nome',
-			'data' => 'Data',
+			'id' => 'ID',
+			'user_id' => 'User',
+			'data_login' => 'Data Login',
 		);
 	}
 
@@ -79,10 +78,10 @@ class Papeis extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-        
+
 		$criteria->compare('id',$this->id);
-		$criteria->compare('nome',$this->nome,true);
-		$criteria->compare('data',$this->data,true);
+		$criteria->compare('user_id',$this->user_id);
+		$criteria->compare('data_login',$this->data_login,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -93,7 +92,7 @@ class Papeis extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return PAPEIS the static model class
+	 * @return Logs the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

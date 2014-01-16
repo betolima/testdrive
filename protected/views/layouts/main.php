@@ -29,9 +29,10 @@
 	<div id="mainmenu">
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
-				array('label'=>'Carros', 'url'=>array('/carro/index')),
+				array('label'=>'Carros', 'url'=>array('/carros/index')),
+				array('label'=>'Marcas', 'url'=>array('/marcas/index')),
 				//array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Users', 'url'=>array('/user')),
+				array('label'=>'Users', 'url'=>array('/users')),
                 //http://api/index.php?r=user/admin
                 //http://api/index.php?r=user
 				//array('label'=>'Contact', 'url'=>array('/site/contact')),

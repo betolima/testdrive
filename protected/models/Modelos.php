@@ -1,25 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "papeis".
+ * This is the model class for table "modelos".
  *
- * The followings are the available columns in table 'papeis':
+ * The followings are the available columns in table 'modelos':
  * @property integer $id
  * @property string $nome
  * @property string $data
  *
  * The followings are the available model relations:
- * @property user[] $users
+ * @property Carros[] $carroses
  */
-class Papeis extends CActiveRecord
+class Modelos extends CActiveRecord
 {
-    
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'papeis';
+		return 'modelos';
 	}
 
 	/**
@@ -32,8 +31,8 @@ class Papeis extends CActiveRecord
 		return array(
 			array('nome, data', 'required'),
 			array('nome', 'length', 'max'=>50),
-			// the following rule is used by search().
-			// @todo please remove those attributes that should not be searched.
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
 			array('id, nome, data', 'safe', 'on'=>'search'),
 		);
 	}
@@ -46,7 +45,7 @@ class Papeis extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'users' => array(self::HAS_MANY, 'users', 'papel_id'),
+			'carroses' => array(self::HAS_MANY, 'Carros', 'modelo_id'),
 		);
 	}
 
@@ -56,7 +55,7 @@ class Papeis extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'Id',
+			'id' => 'ID',
 			'nome' => 'Nome',
 			'data' => 'Data',
 		);
@@ -79,7 +78,7 @@ class Papeis extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-        
+
 		$criteria->compare('id',$this->id);
 		$criteria->compare('nome',$this->nome,true);
 		$criteria->compare('data',$this->data,true);
@@ -93,7 +92,7 @@ class Papeis extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return PAPEIS the static model class
+	 * @return Modelos the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
